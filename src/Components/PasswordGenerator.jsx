@@ -129,7 +129,7 @@ function PasswordGenerator() {
       <ToastContainer />
       <div className="container">
         <div className="row">
-          <h2 className="title">Strong Password Generator</h2>
+          <h2 className="title title_heading">Strong Password Generator</h2>
           <div className="password-wrapper ">
             <div className="password-area">
               <div className="password">
@@ -139,20 +139,12 @@ function PasswordGenerator() {
                   disabled
                   placeholder="Click on the Generate Password"
                 />
-                <div className="d-flex flex-row two_imgs">
-                  <img
-                    src={copyIcon}
-                    alt="copyicon"
-                    className="copyIcon"
-                    onClick={copyPassword}
-                  />
-                  <img
-                    src={changePsdIcon}
-                    alt="changePsdIcon"
-                    className="copyIcon"
-                    onClick={copyPassword}
-                  />
-                </div>
+                <img
+                  src={copyIcon}
+                  alt="copyicon"
+                  className="copyIcon"
+                  onClick={copyPassword}
+                />
               </div>
             </div>
           </div>
@@ -252,17 +244,21 @@ function PasswordGenerator() {
               </div>
             </div>
           </div>
-          <div className="password-strength d-flex ">
+          <div className="password-strength ">
             <h3>Password strength :</h3>
-            <div className="strength_type_color">{strengthType}</div>
+            <div className=" ">
+              <span className="strength_type_color">{strengthType}</span>
+            </div>
           </div>
-          <div className="buttons">
-            <button type="button" onClick={copyPassword}>
-              Copy Password
-            </button>
-            <button type="button" onClick={generatePassword}>
-              Generate Password
-            </button>
+          <div className="">
+            <div className="buttons ">
+              <button type="button" onClick={copyPassword}>
+                Copy Password
+              </button>
+              <button type="button" onClick={generatePassword}>
+                Generate Password
+              </button>
+            </div>
           </div>
         </div>
       </div>
