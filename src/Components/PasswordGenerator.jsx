@@ -16,6 +16,7 @@ function PasswordGenerator() {
   const [upperCase, setUpperCase] = useState(true);
   const [numbers, setNumbers] = useState(true);
   const [symbols, setSymbols] = useState(true);
+  const [excludeDuplicates, setExcludeDuplicates] = useState(false);
   const [passwordLength, setPasswordLength] = useState(8);
   //   const [strength, setStrength] = useState(0);
   const [strengthType, setStrengthType] = useState("weak");
@@ -46,25 +47,43 @@ function PasswordGenerator() {
       const characterIndex = Math.round(Math.random() * characterListLength);
       tempPassword += characterList.charAt(characterIndex);
     }
+    if (excludeDuplicates) {
+      tempPassword = removeDuplicateCharacters(tempPassword);
+    }
     setPassword(tempPassword);
     // console.log(password);
   };
 
+  const removeDuplicateCharacters = (str) => {
+    return str
+      .split("")
+      .filter((item, index, self) => self.indexOf(item) === index)
+      .join("");
+  };
+
   const getPasswordStrength = () => {
     let strength = 0;
-    if (password.match(/[a-z]/)) {
+
+    const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const numbersRegex = /[0-9]/;
+    const symbolsRegex = /[^a-zA-Z0-9]/;
+
+    if (lowerCase && password.match(lowercaseRegex)) {
       strength++;
     }
-    if (password.match(/[A-Z]/)) {
+
+    if (upperCase && password.match(uppercaseRegex)) {
       strength++;
     }
-    if (password.match(/[0-9]/) && numbers) {
+
+    if (numbers && password.match(numbersRegex)) {
       strength++;
     }
-    if (password.match(/[^a-zA-Z0-9]/) && symbols) {
+
+    if (symbols && password.match(symbolsRegex)) {
       strength++;
     }
-    // console.log(strength);
     return strength;
   };
 
@@ -87,7 +106,15 @@ function PasswordGenerator() {
     psdStrengthMeter(strength);
 
     generatePassword();
-  }, [passwordLength, lowerCase, upperCase, numbers, symbols, strengthType]);
+  }, [
+    passwordLength,
+    lowerCase,
+    upperCase,
+    numbers,
+    symbols,
+    strengthType,
+    excludeDuplicates,
+  ]);
 
   const psdStrengthMeter = (strength) => {
     if (strength <= 1) {
@@ -187,6 +214,18 @@ function PasswordGenerator() {
                     />
                     <label htmlFor="upper">Include UpperCase(A-Z)</label>
                   </div>
+                  <div className="checkbox-field">
+                    <input
+                      type="checkbox"
+                      name="excludeDuplicates"
+                      id="excludeDuplicates"
+                      checked={excludeDuplicates}
+                      onChange={() => setExcludeDuplicates(!excludeDuplicates)}
+                    />
+                    <label htmlFor="excludeDuplicates">
+                      Exclude Duplicate Characters
+                    </label>
+                  </div>
                 </div>
                 <div className="right">
                   <div className="checkbox-field">
@@ -223,6 +262,7 @@ function PasswordGenerator() {
                     />
                     <label htmlFor="symbols">Include Symbols(&-#)</label>
                   </div>
+                  
                 </div>
               </div>
             </div>
