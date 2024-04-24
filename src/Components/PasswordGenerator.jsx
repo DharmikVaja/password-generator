@@ -4,6 +4,7 @@ import copyIcon from "../assets/copy-icon.svg";
 import changePsdIcon from "../assets/change-psd-icon.svg";
 import { ToastContainer, toast } from "react-toastify";
 import { IoMdSync } from "react-icons/io";
+import Psd_img from "../assets/psd_favicon.png";
 
 function PasswordGenerator() {
   const lowercaseList = "abcdefghijklmnopqrstuvwxyz";
@@ -154,9 +155,12 @@ function PasswordGenerator() {
   return (
     <>
       <ToastContainer />
-      <div className="container">
+      <div className="container ">
         <div className="row">
-          <h2 className="title title_heading">Strong Password Generator</h2>
+          <div className="title title_heading ">
+            <img src={Psd_img} alt="" className="img img-fluid psd_logo " />
+            <p className="">Strong Password Generator</p>
+          </div>
           <div className="password-wrapper ">
             <div className="password-area">
               <div className="password">
@@ -262,7 +266,6 @@ function PasswordGenerator() {
                     />
                     <label htmlFor="symbols">Include Symbols(&-#)</label>
                   </div>
-                  
                 </div>
               </div>
             </div>
